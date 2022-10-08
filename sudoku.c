@@ -4,42 +4,6 @@
 
 // sudoku solver in C
 
-int main(void)
-{
-    int board[9][9]= {{0, 0, 0, 0, 0, 0, 0, 0, 0},
-                      {0, 0, 0, 0, 0, 0, 0, 0, 0},
-                      {0, 0, 0, 0, 0, 0, 0, 0, 0},
-                      {0, 0, 0, 0, 0, 0, 0, 0, 0},
-                      {0, 0, 0, 0, 0, 0, 0, 0, 0},
-                      {0, 0, 0, 0, 0, 0, 0, 0, 0},
-                      {0, 0, 0, 0, 0, 0, 0, 0, 0},
-                      {0, 0, 0, 0, 0, 0, 0, 0, 0},
-                      {0, 0, 0, 0, 0, 0, 0, 0, 0}};
-
-    // allocate metadata trackers
-        // one function to create arr of linked list of size 9
-        // init in same function
-        // allocate an array of size 9 of node stars
-
-    // tracks the size of lls in trackers arrays
-    int row_size[9] = {9, 9, 9, 9, 9, 9, 9, 9, 9};
-    int col_size[9] = {9, 9, 9, 9, 9, 9, 9, 9, 9};
-    int sqr_size[9] = {9, 9, 9, 9, 9, 9, 9, 9, 9};
-
-    // initialize trackers
-    struct node* row_tracker;
-    init_tracker(&row_tracker);
-    
-    // call to solve positions
-    solve_puzzle(board);
-
-    // deallocate memory
-        // kill lists
-        // free arrays
-
-    return 0;
-}
-
 // update which numbers are avail for the row, col, or sqr
 // int row_update(int** ptr, board[][])
 // {
@@ -65,26 +29,27 @@ int main(void)
 // }
 
 // initializes tracking lists with available numbers 
-void init_tracker(struct node** tracker)
+void init_tracker(node** tracker)
 {
-    int* arr = *tracker;
+    node* arr = *tracker;
     // initialize array of linked list heads
     for (int i = 0; i <= 8; i++)
     {
-        if (((arr) = (int*)malloc(sizeof(int*) * 9)) == 0)
+        // printf("inb4 seg fault: init\n");
+        if (((arr) = (node*)malloc(sizeof(int*) * 9)) == 0)
         {
             printf("failed to allocate memory\n");
             exit(0);
         }
 
-        for (int j = 0; j < 8; j++)
+        tracker[i] = create(1);
+        for (int j = 1; j <= 8; j++)
         {
-            tracker[i][j] = create(1);
-            for (int k = 1; k <= 8; k++)
-            {
-                insert(tracker[i][j], k + 1);
-            }
+            // printf("inb4 seg fault: ll\n");
+            // tracker of i,j is a node create returns a node*
+            insert(tracker[i], j + 1);                        
         }
+        display(tracker[i]);
     }
 }
 
@@ -98,13 +63,49 @@ void init_tracker(struct node** tracker)
 // }
 
 // does pointer to 2d array even compile
-int solve_puzzle(int *board[][])
+// int solve_puzzle(int *board[][])
+// {
+//     // for each position 
+//     //      call solve position (skip if position is non-zero)
+//     //      count number of solved positions
+//     //      if number of solved positions != 81
+//     //      then recurse
+
+//     return 0;
+// }
+
+int main(void)
 {
-    // for each position 
-    //      call solve position (skip if position is non-zero)
-    //      count number of solved positions
-    //      if number of solved positions != 81
-    //      then recurse
+    int board[9][9]= {{0, 0, 0, 0, 0, 0, 0, 0, 0},
+                      {0, 0, 0, 0, 0, 0, 0, 0, 0},
+                      {0, 0, 0, 0, 0, 0, 0, 0, 0},
+                      {0, 0, 0, 0, 0, 0, 0, 0, 0},
+                      {0, 0, 0, 0, 0, 0, 0, 0, 0},
+                      {0, 0, 0, 0, 0, 0, 0, 0, 0},
+                      {0, 0, 0, 0, 0, 0, 0, 0, 0},
+                      {0, 0, 0, 0, 0, 0, 0, 0, 0},
+                      {0, 0, 0, 0, 0, 0, 0, 0, 0}};
+
+    // allocate metadata trackers
+        // one function to create arr of linked list of size 9
+        // init in same function
+        // allocate an array of size 9 of node stars
+
+    // tracks the size of lls in trackers arrays
+    int row_size[9] = {9, 9, 9, 9, 9, 9, 9, 9, 9};
+    int col_size[9] = {9, 9, 9, 9, 9, 9, 9, 9, 9};
+    int sqr_size[9] = {9, 9, 9, 9, 9, 9, 9, 9, 9};
+
+    // initialize trackers
+    node* row_tracker;
+    init_tracker(&row_tracker);
+    
+    // call to solve positions
+    // solve_puzzle(board);
+
+    // deallocate memory
+        // kill lists
+        // free arrays
 
     return 0;
 }
