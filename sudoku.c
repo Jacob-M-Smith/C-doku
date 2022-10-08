@@ -99,7 +99,15 @@ int main(void)
     // initialize trackers
     node* row_tracker;
     init_tracker(&row_tracker);
+
+    node* col_tracker;
+    init_tracker(&col_tracker);
     
+    node* sqr_tracker;
+    init_tracker(&sqr_tracker);
+
+    // scour board to correct metadata
+
     // call to solve positions
     // solve_puzzle(board);
 
