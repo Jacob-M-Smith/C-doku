@@ -9,7 +9,7 @@
 node* create(int val)
 {
     node *head;
-    if ((head = (node*)malloc(sizeof(struct node))) == NULL)
+    if ((head = (node*)malloc(sizeof(node))) == NULL)
     {
         printf("No avail memory\n");
         exit(0);
