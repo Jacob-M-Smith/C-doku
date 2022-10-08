@@ -15,7 +15,7 @@ struct node* create(int val)
         exit(0);
     }
     head->data = val;
-    // head->next = sub;
+    head->next = NULL;
     // printf("alloc addr: %x\n", head);
     return head;
 }
@@ -38,7 +38,7 @@ void kill(struct node *head)
 void insert(struct node *head, int val)
 {
     // setup node
-    struct node *new_node = create(val, NULL);
+    struct node *new_node = create(val);
 
     // loop through the list till last node
     struct node *curr = head;
