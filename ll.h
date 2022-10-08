@@ -9,7 +9,7 @@ typedef struct node
 }node;
 
 // list life
-struct node*     create(int val, struct node *sub);
+struct node*     create(int val);
 void             kill(struct node* head);
 
 // list mod

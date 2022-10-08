@@ -6,7 +6,7 @@
 #include "ll.h"
 
 // allocate a head node
-struct node* create(int val, struct node *sub)
+struct node* create(int val)
 {
     struct node *head;
     if ((head = (struct node*)malloc(sizeof(struct node))) == NULL)
@@ -15,7 +15,7 @@ struct node* create(int val, struct node *sub)
         exit(0);
     }
     head->data = val;
-    head->next = sub;
+    // head->next = sub;
     // printf("alloc addr: %x\n", head);
     return head;
 }
