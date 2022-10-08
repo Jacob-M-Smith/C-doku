@@ -1,5 +1,5 @@
-#ifndef "LL"
-#define "LL"
+#ifndef LL
+#define LL
 
 // structure
 typedef struct node
