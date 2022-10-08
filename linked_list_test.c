@@ -7,7 +7,7 @@
 void main()
 {
     // not recognized
-    struct node *head = create(1, NULL);
+    struct node *head = create(1);
     display(head);
     
     insert(head, 2);
