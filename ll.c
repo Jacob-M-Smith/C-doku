@@ -6,10 +6,10 @@
 #include "ll.h"
 
 // allocate a head node
-struct node* create(int val)
+node* create(int val)
 {
-    struct node *head;
-    if ((head = (struct node*)malloc(sizeof(struct node))) == NULL)
+    node *head;
+    if ((head = (node*)malloc(sizeof(struct node))) == NULL)
     {
         printf("No avail memory\n");
         exit(0);
@@ -21,9 +21,9 @@ struct node* create(int val)
 }
 
 // deallocate the list referenced by head
-void kill(struct node *head)
+void kill(node *head)
 {
-    struct node *dead;
+    node *dead;
 
     while (head != NULL)
     {
@@ -35,14 +35,14 @@ void kill(struct node *head)
 }
 
 // allocates and inserts node with data->val at end of list
-void insert(struct node *head, int val)
+void insert(node *head, int val)
 {
     // setup node
-    struct node *new_node = create(val);
+    node *new_node = create(val);
 
     // loop through the list till last node
-    struct node *curr = head;
-    struct node *next = head->next;
+    node *curr = head;
+    node *next = head->next;
     while (next != NULL)
     {
         curr = next;
@@ -56,10 +56,10 @@ void insert(struct node *head, int val)
 
 // removes a node from head's list at the specified index
 // index out of range will cause seg fault (obv)
-void eliminate(struct node **head_ptr, int index)
+void eliminate(node **head_ptr, int index)
 {
-    struct node *dead;
-    struct node *head = *head_ptr;
+    node *dead;
+    node *head = *head_ptr;
 
     if (index == 0)
     {
@@ -74,8 +74,8 @@ void eliminate(struct node **head_ptr, int index)
     int curr_index = 0;
 
     // loop through the list till one before index
-    struct node *curr = head;
-    struct node *next = head->next;
+    node *curr = head;
+    node *next = head->next;
     while (next != NULL)
     {
         if (curr_index == (index - 1))
@@ -107,14 +107,14 @@ void eliminate(struct node **head_ptr, int index)
 }
 
 // returns the size of the list
-int list_size(struct node *head)
+int list_size(node *head)
 {
     // if we have a head size must at least be one
     int size = 1;
 
     // loop through the list till last node
-    struct node *curr = head;
-    struct node *next = head->next;
+    node *curr = head;
+    node *next = head->next;
     while (next != NULL)
     {
         curr = next;
@@ -126,13 +126,13 @@ int list_size(struct node *head)
 }
 
 // returns an index if list contains node with val, otherwise -1
-int contains(struct node* head, int val)
+int contains(node* head, int val)
 {    
     int index = 0;
 
     // loop through the list till last node
-    struct node *curr = head;
-    struct node *next = head->next;
+    node *curr = head;
+    node *next = head->next;
     while (next != NULL)
     {
         if (curr->data == val)
@@ -148,9 +148,9 @@ int contains(struct node* head, int val)
 }
 
 // print contents of list
-void display(struct node *head)
+void display(node *head)
 {
-    struct node *curr = head;
+    node *curr = head;
 
     while(curr != NULL)
     {
