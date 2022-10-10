@@ -11,6 +11,6 @@ int col_size[9] = {9, 9, 9, 9, 9, 9, 9, 9, 9};
 int sqr_size[9] = {9, 9, 9, 9, 9, 9, 9, 9, 9};
 
 void init_tracker(node**);
-// void update_row(node**, int[9][9])
+void update_row(node**, int[9][9]);
 
 #endif
