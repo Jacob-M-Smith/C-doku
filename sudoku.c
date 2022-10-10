@@ -1,32 +1,32 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "ll.h"
+#include "sudoku.h"
 
 // sudoku solver in C
-
+    
 // update which numbers are avail for the row, col, or sqr
-// int row_update(int** ptr, board[][])
-// {
-//     for(int i = 0; i > 9; i++)
-//     {
-//         for(int j = 0; j > 9; j++)
-//         {
-//             number = board[i][j];
-//             if (number != 0)
-//             {
-//                 if(search(ptr[i], number))
-//                 {
-//                     // shrink
-//                 }
-//             }
-//         }
-//         // check for number at board[j][i]
-//         // zero indicates empty space 
-//         // if number is in avail row ll, remove it        
-//     }
+void update_row(node** tracker, int board[9][9])
+{
+    int curr_val, index;
+    for (int i = 0; i <= 8; i++)
+    {
+        for (int j = 0; j <= 8; j++)
+        {
+            curr_val = board[i][j];
 
-//     return 0;
-// }
+            if (!curr_val)
+                continue;
+
+            if((index = contains(tracker[i], curr_val)) != -1) 
+            {
+                eliminate(&tracker[i], index);
+                row_size[i]--;
+            }
+        }
+        display(tracker[i]);
+    }
+}
 
 // initializes tracking lists with available numbers 
 void init_tracker(node** tracker)
@@ -49,7 +49,7 @@ void init_tracker(node** tracker)
             // tracker of i,j is a node create returns a node*
             insert(tracker[i], j + 1);                        
         }
-        display(tracker[i]);
+        // display(tracker[i]);
     }
 }
 
@@ -76,25 +76,20 @@ void init_tracker(node** tracker)
 
 int main(void)
 {
-    int board[9][9]= {{0, 0, 0, 0, 0, 0, 0, 0, 0},
+    int board[9][9]= {{1, 0, 6, 4, 0, 0, 0, 0, 7},
+                      {0, 0, 9, 0, 0, 7, 0, 0, 0},
+                      {0, 0, 8, 9, 2, 0, 0, 4, 6},
+                      {0, 6, 0, 1, 0, 4, 2, 0, 0},
+                      {0, 8, 1, 0, 0, 0, 0, 3, 0},
+                      {2, 0, 0, 8, 0, 5, 6, 0, 1},
                       {0, 0, 0, 0, 0, 0, 0, 0, 0},
-                      {0, 0, 0, 0, 0, 0, 0, 0, 0},
-                      {0, 0, 0, 0, 0, 0, 0, 0, 0},
-                      {0, 0, 0, 0, 0, 0, 0, 0, 0},
-                      {0, 0, 0, 0, 0, 0, 0, 0, 0},
-                      {0, 0, 0, 0, 0, 0, 0, 0, 0},
-                      {0, 0, 0, 0, 0, 0, 0, 0, 0},
-                      {0, 0, 0, 0, 0, 0, 0, 0, 0}};
+                      {0, 3, 4, 0, 6, 0, 7, 0, 0},
+                      {0, 1, 7, 0, 0, 0, 9, 6, 0}};
 
     // allocate metadata trackers
         // one function to create arr of linked list of size 9
         // init in same function
         // allocate an array of size 9 of node stars
-
-    // tracks the size of lls in trackers arrays
-    int row_size[9] = {9, 9, 9, 9, 9, 9, 9, 9, 9};
-    int col_size[9] = {9, 9, 9, 9, 9, 9, 9, 9, 9};
-    int sqr_size[9] = {9, 9, 9, 9, 9, 9, 9, 9, 9};
 
     // initialize trackers
     node* row_tracker;
@@ -107,6 +102,14 @@ int main(void)
     init_tracker(&sqr_tracker);
 
     // scour board to correct metadata
+    update_row(&row_tracker, board);
+    printf("\n");
+
+    // update_trkr(&col_tracker, board, COL);
+    // printf("\n");
+
+    // update_trkr(&sqr_tracker, board, SQR);
+    // printf("\n");
 
     // call to solve positions
     // solve_puzzle(board);
