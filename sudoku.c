@@ -4,9 +4,18 @@
 #include "sudoku.h"
 
 // sudoku solver in C
-    
+int board[9][9] =  {{1, 0, 6, 4, 0, 0, 0, 0, 7},
+                    {0, 0, 9, 0, 0, 7, 0, 0, 0},
+                    {0, 0, 8, 9, 2, 0, 0, 4, 6},
+                    {0, 6, 0, 1, 0, 4, 2, 0, 0},
+                    {0, 8, 1, 0, 0, 0, 0, 3, 0},
+                    {2, 0, 0, 8, 0, 5, 6, 0, 1},
+                    {0, 0, 0, 0, 0, 0, 0, 0, 0},
+                    {0, 3, 4, 0, 6, 0, 7, 0, 0},
+                    {0, 1, 7, 0, 0, 0, 9, 6, 0}};
+
 // update which numbers are avail for the row, col, or sqr
-void update_row(node** tracker, int board[9][9])
+void update_row(node** tracker)
 {
     int curr_val, index;
     for (int i = 0; i <= 8; i++)
@@ -21,10 +30,9 @@ void update_row(node** tracker, int board[9][9])
             if((index = contains(tracker[i], curr_val)) != -1) 
             {
                 eliminate(&tracker[i], index);
-                row_size[i]--;
+                // row_size[i]--;
             }
         }
-        display(tracker[i]);
     }
 }
 
@@ -32,25 +40,18 @@ void update_row(node** tracker, int board[9][9])
 void init_tracker(node** tracker)
 {
     node* arr = *tracker;
-    // initialize array of linked list heads
+
     for (int i = 0; i <= 8; i++)
     {
-        // printf("inb4 seg fault: init\n");
-        if (((arr) = (node*)malloc(sizeof(int*) * 9)) == 0)
-        {
-            printf("failed to allocate memory\n");
-            exit(0);
-        }
+        arr = create(1);
 
-        tracker[i] = create(1);
         for (int j = 1; j <= 8; j++)
         {
-            // printf("inb4 seg fault: ll\n");
-            // tracker of i,j is a node create returns a node*
-            insert(tracker[i], j + 1);                        
+            insert(arr, j + 1);
         }
-        // display(tracker[i]);
-    }
+        display(arr);
+        arr++;
+    }    
 }
 
 // check to see if position x, y can be solved
@@ -76,35 +77,26 @@ void init_tracker(node** tracker)
 
 int main(void)
 {
-    int board[9][9]= {{1, 0, 6, 4, 0, 0, 0, 0, 7},
-                      {0, 0, 9, 0, 0, 7, 0, 0, 0},
-                      {0, 0, 8, 9, 2, 0, 0, 4, 6},
-                      {0, 6, 0, 1, 0, 4, 2, 0, 0},
-                      {0, 8, 1, 0, 0, 0, 0, 3, 0},
-                      {2, 0, 0, 8, 0, 5, 6, 0, 1},
-                      {0, 0, 0, 0, 0, 0, 0, 0, 0},
-                      {0, 3, 4, 0, 6, 0, 7, 0, 0},
-                      {0, 1, 7, 0, 0, 0, 9, 6, 0}};
-
     // allocate metadata trackers
         // one function to create arr of linked list of size 9
         // init in same function
         // allocate an array of size 9 of node stars
 
     // initialize trackers
-    node* row_tracker;
+    node* row_tracker = (node*)malloc(sizeof(node)*9); // this is one linked list we want many linked lists
     init_tracker(&row_tracker);
 
-    node* col_tracker;
-    init_tracker(&col_tracker);
+    // node* col_tracker;
+    // init_tracker(&col_tracker);
     
-    node* sqr_tracker;
-    init_tracker(&sqr_tracker);
+    // node* sqr_tracker;
+    // init_tracker(&sqr_tracker);
 
     // scour board to correct metadata
-    update_row(&row_tracker, board);
-    printf("\n");
+    // update_row(&row_tracker);
+    // printf("\n");
 
+    // display(&row_tracker[0]);
     // update_trkr(&col_tracker, board, COL);
     // printf("\n");
 
