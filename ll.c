@@ -9,14 +9,13 @@
 node* create(int val)
 {
     node *head;
-    if ((head = (node*)malloc(sizeof(node))) == NULL)
+    if ((head = (node*)malloc(sizeof(node*))) == NULL)
     {
         printf("No avail memory\n");
         exit(0);
     }
     head->data = val;
     head->next = NULL;
-    // printf("alloc addr: %x\n", head);
     return head;
 }
 
