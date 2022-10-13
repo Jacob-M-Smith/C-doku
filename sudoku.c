@@ -14,44 +14,40 @@ int board[9][9] =  {{1, 0, 6, 4, 0, 0, 0, 0, 7},
                     {0, 3, 4, 0, 6, 0, 7, 0, 0},
                     {0, 1, 7, 0, 0, 0, 9, 6, 0}};
 
-// update which numbers are avail for the row, col, or sqr
+// update which numbers are avail for the row
 void update_row(node** tracker)
 {
     int curr_val, index;
-    for (int i = 0; i <= 8; i++)
-    {
-        for (int j = 0; j <= 8; j++)
-        {
-            curr_val = board[i][j];
+    node* arr = *tracker;
 
-            if (!curr_val)
-                continue;
-
-            if((index = contains(tracker[i], curr_val)) != -1) 
-            {
-                eliminate(&tracker[i], index);
-                // row_size[i]--;
-            }
-        }
-    }
+    // redo
 }
 
 // initializes tracking lists with available numbers 
-void init_tracker(node** tracker)
+
+// create a variable node* and return that to the tracker variable
+node* init_tracker()
 {
-    node* arr = *tracker;
+    node* arr;
+    if ((arr = (node*)malloc(sizeof(node)*9)) == 0)
+    {
+        printf("malloc failure\n");
+        exit(0);
+    }
+
+    // node* addr = arr;
 
     for (int i = 0; i <= 8; i++)
     {
-        arr = create(1);
+        arr[i] = *create(1);
 
         for (int j = 1; j <= 8; j++)
         {
-            insert(arr, j + 1);
+            insert(&arr[i], j + 1);
         }
-        display(arr);
-        arr++;
-    }    
+        // arr++;
+    }
+    return arr; // wrong return address
 }
 
 // check to see if position x, y can be solved
@@ -83,8 +79,15 @@ int main(void)
         // allocate an array of size 9 of node stars
 
     // initialize trackers
-    node* row_tracker = (node*)malloc(sizeof(node)*9); // this is one linked list we want many linked lists
-    init_tracker(&row_tracker);
+    node* row_tracker = init_tracker();
+    
+    for (int i = 0; i < 9; i++)
+        display(&row_tracker[i]);
+
+
+
+    // printf("%d\n", row_tracker[1].data);
+    // printf("%d\n", row_tracker[7].next->data);
 
     // node* col_tracker;
     // init_tracker(&col_tracker);
@@ -94,13 +97,6 @@ int main(void)
 
     // scour board to correct metadata
     // update_row(&row_tracker);
-    // printf("\n");
-
-    // display(&row_tracker[0]);
-    // update_trkr(&col_tracker, board, COL);
-    // printf("\n");
-
-    // update_trkr(&sqr_tracker, board, SQR);
     // printf("\n");
 
     // call to solve positions
